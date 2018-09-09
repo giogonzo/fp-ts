@@ -27,7 +27,7 @@ import { semigroupString, semigroupSum } from '../src/Semigroup'
 import { setoidNumber } from '../src/Setoid'
 import { identity } from '../src/function'
 import { Identity, identity as I } from '../src/Identity'
-import { monoidSum } from '../src/Monoid'
+import { monoidSum, monoidString } from '../src/Monoid'
 
 const p = (n: number): boolean => n > 2
 
@@ -200,6 +200,16 @@ describe('Option', () => {
   it('reduce', () => {
     assert.strictEqual(none.reduce(2, (b, a) => b + a), 2)
     assert.strictEqual(some(3).reduce(2, (b, a) => b + a), 5)
+  })
+
+  it('foldMap', () => {
+    assert.deepEqual(option.foldMap(monoidString)(some('a'), s => s), 'a')
+    assert.deepEqual(option.foldMap(monoidString)(none, s => s), '')
+  })
+
+  it('foldr', () => {
+    assert.deepEqual(option.foldr(some('a'), '', (a, acc) => acc + a), 'a')
+    assert.deepEqual(option.foldr(none, '', (a, acc) => acc + a), '')
   })
 
   it('getApplySemigroup', () => {

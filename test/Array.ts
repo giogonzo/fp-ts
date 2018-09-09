@@ -48,7 +48,7 @@ import {
   foldr
 } from '../src/Array'
 import { left, right } from '../src/Either'
-import { fold as foldMonoid, monoidSum } from '../src/Monoid'
+import { fold as foldMonoid, monoidSum, monoidString } from '../src/Monoid'
 import { option, Option, none, some } from '../src/Option'
 import { contramap as contramapOrd, ordNumber, ordString } from '../src/Ord'
 import { contramap, getArraySetoid, setoidBoolean, setoidNumber, setoidString } from '../src/Setoid'
@@ -314,6 +314,16 @@ describe('Array', () => {
 
   it('reduce', () => {
     assert.deepEqual(array.reduce([1, 2, 3], 0, (acc, a) => acc + a), 6)
+  })
+
+  it('foldMap', () => {
+    assert.deepEqual(array.foldMap(monoidString)(['a', 'b', 'c'], s => s), 'abc')
+    assert.deepEqual(array.foldMap(monoidString)([], s => s), '')
+  })
+
+  it('foldr', () => {
+    assert.deepEqual(array.foldr(['a', 'b', 'c'], '', (a, acc) => acc + a), 'cba')
+    assert.deepEqual(array.foldr([], '', (a, acc) => acc + a), '')
   })
 
   it('fold', () => {
