@@ -233,7 +233,10 @@ describe('TaskEither', () => {
   })
 
   it('tryCatch', () => {
-    const ok = tryCatch(() => Promise.resolve(1), () => 'error')
+    const maybeGetOne = (): Promise<number> => {
+      throw new Error('nope')
+    }
+    const ok = tryCatch(() => Promise.resolve(maybeGetOne()), () => 'error')
     const ko = tryCatch(() => Promise.reject(undefined), () => 'error')
     return Promise.all([ok.run(), ko.run()]).then(([eok, eko]) => {
       assert.deepEqual(eok, eitherRight(1))
