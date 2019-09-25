@@ -261,7 +261,7 @@ Group equal, consecutive elements of an array into non empty arrays.
 **Signature**
 
 ```ts
-export function group<A>(E: Eq<A>): (as: Array<A>) => Array<NonEmptyArray<A>> { ... }
+export function group<A>(E: Eq<A>): (as: ReadonlyArray<A>) => Array<NonEmptyArray<A>> { ... }
 ```
 
 **Example**
@@ -306,7 +306,7 @@ Sort and then group the elements of an array into non empty arrays.
 **Signature**
 
 ```ts
-export function groupSort<A>(O: Ord<A>): (as: Array<A>) => Array<NonEmptyArray<A>> { ... }
+export function groupSort<A>(O: Ord<A>): (as: ReadonlyArray<A>) => ReadonlyArray<NonEmptyArray<A>> { ... }
 ```
 
 **Example**

@@ -283,8 +283,8 @@ R.getMonoid<Keys, number>(S.semigroupSum) // $ExpectType Monoid<Record<Keys, num
 R.getEq<Keys, number>(Eq.eqNumber) // $ExpectType Eq<Record<Keys, number>>
 R.getEq(Eq.eqNumber) // $ExpectType Eq<Record<string, number>>
 
-R.toUnfoldable(A.array)({ a: 1 }) // $ExpectType ["a", number][]
-R.toUnfoldable(A.array)({ a: 1, b: 2 }) // $ExpectType ["a" | "b", number][]
+R.toUnfoldable(A.array)({ a: 1 }) // $ExpectType readonly ["a", number][]
+R.toUnfoldable(A.array)({ a: 1, b: 2 }) // $ExpectType readonly ["a" | "b", number][]
 
 declare const fromFoldableF1: Fo.Foldable<'Test'>
 declare const fromFoldableInput1: H.HKT<'Test', ['a' | 'b', number]>
@@ -340,7 +340,7 @@ nea2v1.sort(Or.ordString.compare) // $ExpectType NonEmptyArray<string>
 // flip
 
 // should handle generics
-Fu.flip(A.cons) // $ExpectType <A>(b: A[], a: A) => NonEmptyArray<A>
+Fu.flip(A.cons) // $ExpectType <A>(b: readonly A[], a: A) => NonEmptyArray<A>
 
 // tuple
 
@@ -349,7 +349,7 @@ Fu.tuple(1) // $ExpectType [number]
 Fu.tuple(1, 'a') // $ExpectType [number, string]
 Fu.tuple(1, 'a', true) // $ExpectType [number, string, boolean]
 
-// $ExpectType <A>(head: A, tail: A[]) => Option<A>
+// $ExpectType <A>(head: A, tail: readonly A[]) => Option<A>
 Fu.flow(
   A.cons,
   A.head
@@ -371,8 +371,8 @@ witherableEither.partition(E.right(1) as E.Either<boolean, string | number>, isS
 
 declare function isStringWithIndex(i: number, x: unknown): x is string
 
-A.array.filterWithIndex([] as Array<string | number>, isStringWithIndex) // $ExpectType string[]
-A.array.partitionWithIndex([] as Array<string | number>, isStringWithIndex) // $ExpectType Separated<(string | number)[], string[]>
+A.array.filterWithIndex([] as Array<string | number>, isStringWithIndex) // $ExpectType readonly string[]
+A.array.partitionWithIndex([] as Array<string | number>, isStringWithIndex) // $ExpectType Separated<readonly (string | number)[], readonly string[]>
 
 const filterableWithIndexMap = Map.getFilterableWithIndex<'a' | 'b'>()
 

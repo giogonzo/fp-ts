@@ -351,7 +351,7 @@ describe('Array', () => {
   })
 
   it('extend', () => {
-    const sum = (as: Array<number>) => foldMonoid(monoidSum)(as)
+    const sum = (as: ReadonlyArray<number>) => foldMonoid(monoidSum)(as)
     assert.deepStrictEqual(array.extend([1, 2, 3, 4], sum), [10, 9, 7, 4])
     assert.deepStrictEqual(array.extend([1, 2, 3, 4], identity), [[1, 2, 3, 4], [2, 3, 4], [3, 4], [4]])
   })
@@ -445,12 +445,12 @@ describe('Array', () => {
   })
 
   it('foldLeft', () => {
-    const len: <A>(as: Array<A>) => number = foldLeft(() => 0, (_, tail) => 1 + len(tail))
+    const len: <A>(as: ReadonlyArray<A>) => number = foldLeft(() => 0, (_, tail) => 1 + len(tail))
     assert.strictEqual(len([1, 2, 3]), 3)
   })
 
   it('foldRight', () => {
-    const len: <A>(as: Array<A>) => number = foldRight(() => 0, (init, _) => 1 + len(init))
+    const len: <A>(as: ReadonlyArray<A>) => number = foldRight(() => 0, (init, _) => 1 + len(init))
     assert.strictEqual(len([1, 2, 3]), 3)
   })
 
@@ -592,7 +592,7 @@ describe('Array', () => {
   })
 
   it('chop', () => {
-    const group = <A>(S: Eq<A>): ((as: Array<A>) => Array<Array<A>>) => {
+    const group = <A>(S: Eq<A>): ((as: ReadonlyArray<A>) => ReadonlyArray<ReadonlyArray<A>>) => {
       return chop(as => {
         const { init, rest } = spanLeft((a: A) => S.equals(a, as[0]))(as)
         return [init, rest]

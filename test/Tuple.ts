@@ -95,7 +95,7 @@ describe('Tuple', () => {
 
   it('chainRec', () => {
     const { chainRec } = T.getChainRec(getMonoid<number>())
-    function seqReq(upper: number): [number, Array<number>] {
+    function seqReq(upper: number): [number, ReadonlyArray<number>] {
       return chainRec(1, init => [init >= upper ? right(init) : left(init + 1), [init]])
     }
     const xs = T.snd(seqReq(10000))

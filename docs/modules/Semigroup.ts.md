@@ -119,7 +119,7 @@ Added in v2.0.0
 **Signature**
 
 ```ts
-export function fold<A>(S: Semigroup<A>): (a: A, as: Array<A>) => A { ... }
+export function fold<A>(S: Semigroup<A>): (a: A, as: ReadonlyArray<A>) => A { ... }
 ```
 
 Added in v2.0.0

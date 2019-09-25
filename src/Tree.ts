@@ -36,7 +36,7 @@ export type URI = typeof URI
 /**
  * @since 2.0.0
  */
-export type Forest<A> = Array<Tree<A>>
+export type Forest<A> = ReadonlyArray<Tree<A>>
 
 /**
  * @since 2.0.0
@@ -74,7 +74,7 @@ export function getShow<A>(S: Show<A>): Show<Tree<A>> {
  * @since 2.0.0
  */
 export function getEq<A>(E: Eq<A>): Eq<Tree<A>> {
-  let SA: Eq<Array<Tree<A>>>
+  let SA: Eq<ReadonlyArray<Tree<A>>>
   const R: Eq<Tree<A>> = fromEquals((x, y) => E.equals(x.value, y.value) && SA.equals(x.forest, y.forest))
   SA = getArrayEq(R)
   return R

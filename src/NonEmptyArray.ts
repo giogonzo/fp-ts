@@ -150,7 +150,7 @@ export const getEq: <A>(E: Eq<A>) => Eq<NonEmptyArray<A>> = A.getEq
  *
  * @since 2.0.0
  */
-export function group<A>(E: Eq<A>): (as: Array<A>) => Array<NonEmptyArray<A>> {
+export function group<A>(E: Eq<A>): (as: ReadonlyArray<A>) => Array<NonEmptyArray<A>> {
   return as => {
     const len = as.length
     if (len === 0) {
@@ -185,7 +185,7 @@ export function group<A>(E: Eq<A>): (as: Array<A>) => Array<NonEmptyArray<A>> {
  *
  * @since 2.0.0
  */
-export function groupSort<A>(O: Ord<A>): (as: Array<A>) => Array<NonEmptyArray<A>> {
+export function groupSort<A>(O: Ord<A>): (as: ReadonlyArray<A>) => ReadonlyArray<NonEmptyArray<A>> {
   const sortO = A.sort(O)
   const groupO = group(O)
   return as => groupO(sortO(as))
